@@ -1,9 +1,10 @@
+import { link } from 'fs';
 import { Blog, BodyType, Body } from '../interfaces/InterfaceBlog'
 import { ref, Ref } from 'vue'
 
 /**
  * @class tools
- * @description Takes a reference to the Blog post and continues the 
+ * @description Takes a reference to the Blog post and continues the
  * 	process of parsing.
  */
 class tools {
@@ -17,11 +18,11 @@ class tools {
 		switch(name)
 		{
 			case '' : this.blog.value.body?.push({ type: BodyType.LineBreak}); break;
-			case '#' : 
+			case '#' :
 				this.blog.value.body?.push({ type: BodyType.Heading1, data: body.slice(name.length, body.length) });
 				this.blog.value.body?.push({type: BodyType.LineBreak});
 			break ;
-			case '##' : 
+			case '##' :
 				this.blog.value.body?.push({ type: BodyType.Heading2, data: body.slice(name.length, body.length) });
 				this.blog.value.body?.push({type: BodyType.LineBreak});
 			break ;
@@ -115,6 +116,68 @@ class tools {
 				item.link = sub[0].slice(1, sub[0].length - 1);
 				item.type = BodyType.Image;
 			}
+		}
+	}
+
+	parseLink (blog: Ref<Blog>)
+	{
+		let body = ref(blog.value.body);
+		let item: Body = {type: BodyType.Bullet};
+		let index = 0;
+		let entries = [{
+			index: 0,
+			start: {
+				type: BodyType.Text,
+				data: ''
+			},
+			center : {
+				type: BodyType.Link,
+				link: '',
+				data: ''
+			},
+			end: {
+				type: BodyType.Text,
+				data: ''
+			},
+		}]
+		if (!body.value)
+			return ;
+		for (item of body.value)
+		{
+			if (item.data?.includes('[') && item.data[item.data?.indexOf('[') - 1] != '!')
+			{
+				let trimFront = item.data.substring(item.data?.indexOf('['));
+				let data = trimFront.substring(1, trimFront.indexOf(']'));
+				let link = trimFront.substring(trimFront.indexOf('(') + 1, trimFront.indexOf(')'));
+				entries.push({
+					index: index,
+					start: {
+						type: BodyType.Text,
+						data: item.data.substring(0, item.data.indexOf(trimFront))
+					},
+					center: {
+						type: BodyType.Link,
+						link: link,
+						data: data
+					},
+					end: {
+						type: BodyType.Text,
+						data: item.data.substring(item.data.indexOf(link) + link.length + 1)
+					}
+				})
+			}
+			index++;
+		}
+		entries = entries.slice(1, entries.length);
+		let p: [number] = [0];
+		p.pop();
+		let entry;
+		for (entry of entries)
+			p.push(entry.index);
+		for (let i = p.length - 1; i >= 0; i--)
+		{
+			body.value.splice(p[i], 0, entries[i].start, entries[i].center, entries[i].end)
+			body.value.splice(p[i] + 3, 1);
 		}
 	}
 
@@ -245,6 +308,6 @@ export default class mainParser {
 			}
 		}
 		this.toolset.parseImg(this.blog);
-		// console.log(this.blog.value);
+		this.toolset.parseLink(this.blog);
 	}
 }
