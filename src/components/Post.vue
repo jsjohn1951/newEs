@@ -95,8 +95,17 @@ const  date = `${ndate[0]}, ${ndate[1]} ${ndate[2]}, ${ndate[3]}`
 			<br v-for="i in 2"/>
 		</div>
 
-		<li v-if="item.type == BodyType.Bullet && item.data" style="margin: 0 5px 0 20px; float: left;">{{ item.data }}</li>
-		<ol v-else-if="item.type == BodyType.Orderd" style="margin-left: 20px;">{{ item.data }}</ol>
+		<li v-if="item.type == BodyType.Bullet && item.data" style="margin: 0 5px 0 20px; float: left;">
+				{{ item.data }}
+		</li>
+		<ol v-else-if="item.type == BodyType.Orderd" style="margin-left: 20px;">
+			<b v-if="item.bold">
+				{{ item.data }}
+			</b>
+			<p v-else>
+				{{ item.data }}
+			</p>
+		</ol>
 
 		<!-- Recursive list -->
 		<list v-if="item.list" :list-body="item.list" :indent="40"/>

@@ -16,7 +16,7 @@ In the fast-paced world of digital marketing, staying ahead of the curve is not 
 
 In an era where information overload is the norm, creating content that captivates and resonates with your audience is paramount. Here's how you can stand out:
 
-- **Interactive Content:** Engage your audience with interactive content like quizzes, polls, and surveys. It encourages participation and boosts user engagement.
+- Interactive Content: **Engage** your audience with interactive content like quizzes, polls, and surveys. It encourages participation and boosts user engagement.
     
 - **Video Dominance:** Video content continues to dominate. Invest in high-quality video production to tell your brand's story effectively.
     

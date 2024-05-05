@@ -280,6 +280,8 @@ export default class mainParser {
 			this.toolset.parseHeading(sub[0], sub[1]);
 			this.toolset.parseBody(sub[0], sub[1]);
 		}
+
+		// Emphasis
 		if (this.blog.value.body)
 		{
 			let index = '';
@@ -292,22 +294,21 @@ export default class mainParser {
 		}
 		if (this.toolset.nbody)
 			this.blog.value.body = this.toolset.nbody;
+
+		// Bullet Points
 		let elem: Body = {type: BodyType.Bullet};
-		let isBul = false;
 		for (elem of this.blog.value.body!)
 		{
-			if (isBul)
+			if (elem.data && elem.data[0] == '-')
 			{
 				elem.type = BodyType.Bullet;
-				isBul = false;
-			}
-			else if (elem.data?.slice(0, 1).includes('-'))
-			{
-				elem.data = elem.data.slice(1, elem.data.length)
-				isBul = true;
+				elem.data = elem.data.slice(1, elem.data.length);
 			}
 		}
 		this.toolset.parseImg(this.blog);
 		this.toolset.parseLink(this.blog);
+		this.blog.value.id = this.blog.value.title.toLowerCase();
+		this.blog.value.id = this.blog.value.id.replaceAll(' ', '-');
+		this.blog.value.id = this.blog.value.id.replaceAll(':', '');
 	}
 }
