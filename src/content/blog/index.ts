@@ -1,20 +1,24 @@
-import blog2 from './How-To-Make-Eye-Catching-Videos-For-Social-Media'
-
 import { Blog, BodyType, Body } from '../interfaces/InterfaceBlog'
 import { ref, Ref } from 'vue'
-import parser from './parseMd'
-
-import nav from './Navigating the Digital Marketing Landsca pe – Trends and Strategies for Success.md'
-import inter from './The Intersection of Creator Economy Trends and Digital Marketing - Navigating the Future.md'
-import waysAi from './5-Ways-That-AI-Is-Changing-the-Digital-Marketing-Landscape.md'
+import parser from '../../composables/parseMd'
 
 let blog: Ref<Blog[]> = ref([]);
 
-blog.value.push(new parser(nav).getBlog().value);
-blog.value.push(new parser(inter).getBlog().value);
-blog.value.push(new parser(waysAi).getBlog().value);
+const ret = async () =>
+{
+	const arr: string[] = []
 
-// const images = require.context('./', true);
+	const mod = import.meta.glob('./*.md', {
+		query: '?raw',
+	  })
+	  for (const path in mod) {
+		  await mod[path]().then((m) => {
+			blog.value.push(new parser(m.default).getBlog().value);
+		  })
+		}
+}
+
+await ret();
 
 export default () => {
 	let posts = []
