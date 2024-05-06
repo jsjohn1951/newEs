@@ -7,7 +7,11 @@ import Post from '../components/Post.vue'
 import { useAppStore } from '@/store/app';
 
 let params = router.currentRoute.value.params.ArticleName;
-const articles = ref(blogs());
+const articles = ref(blogs().filter((post) => {
+	if (post().value.draft)
+		return false;
+	return true;
+}));
 let blog = articles.value.find(i => i().value.id === params);
 const page = ref(1);
 const search = useAppStore();
