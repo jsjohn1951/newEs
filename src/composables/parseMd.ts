@@ -39,12 +39,15 @@ class tools {
 
 	parseBody(name: string | undefined, body: string | undefined)
 	{
-		if (!name || !body)
+		if (!name && !body)
 			return ;
 		switch(name)
 		{
 			case '' :
-				this.blog.value.body?.push({type: BodyType.LineBreak});
+				if (!body)
+					this.blog.value.body?.push({type: BodyType.LineBreak});
+				else
+					this.blog.value.body?.push({ type: BodyType.Text, data: body })
 				return ;
 			case '#' : return ;
 			case '##' : return ;
@@ -119,6 +122,22 @@ class tools {
 		}
 	}
 
+	checkLinks(blog: Ref<Blog>)
+	{
+		let item: Body = {type: BodyType.Bullet};
+		let body = ref(blog.value.body);
+		if (!body.value)
+			return ;
+		for (item of body.value)
+		{
+			if (item.data?.includes('[') && item.data[item.data?.indexOf('[') - 1] != '!')
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	parseLink (blog: Ref<Blog>)
 	{
 		let body = ref(blog.value.body);
@@ -187,6 +206,67 @@ class tools {
 	}
 }
 
+export class parsEmBul {
+	private toolset : tools;
+	private blog: Ref<Blog> = ref({
+		id: '',
+		date: '',
+		title: '',
+		description: '',
+		authors: [],
+		categories: [],
+		tags: [],
+		images: [],
+		body: []
+	})
+
+	constructor (blog: Ref<Blog>)
+	{
+		this.blog = blog;
+		this.toolset = new tools(this.blog);
+
+		// console.log(this.blog.value.body);
+		// Emphasis
+		if (this.blog.value.body)
+		{
+			let index = '';
+			let i = 0;
+			for (index in this.blog.value.body)
+			{
+				i = parseInt(index);
+				this.toolset.parseEmphasis(i, '**');
+			}
+		}
+		if (this.toolset.nbody)
+			this.blog.value.body = this.toolset.nbody;
+
+		// // Bullet Points
+		let elem: Body = {type: BodyType.Bullet};
+		for (elem of this.blog.value.body!)
+		{
+			// console.log(elem.data)
+			if (elem.data && elem.data.trimStart()[0] == '-')
+			{
+				elem.type = BodyType.Bullet;
+				elem.data = elem.data.slice(1, elem.data.length);
+			}
+		}
+		elem = {type: BodyType.Bullet};
+		for (elem of this.blog.value.body!)
+		{
+			// console.log(elem.data)
+			if (elem.data && elem.data.trimStart()[0] == '-')
+			{
+				elem.type = BodyType.Bullet;
+				elem.data = elem.data.slice(1, elem.data.length);
+			}
+		}
+		this.toolset.parseImg(this.blog);
+		while (this.toolset.checkLinks(this.blog) === true)
+		this.toolset.parseLink(this.blog);
+	}
+}
+
 export default class mainParser {
 	private md : string = '';
 	private data: string[];
@@ -240,8 +320,18 @@ export default class mainParser {
 			case 'meta_title:': this.blog.value.meta_title = curr; break ;
 			case 'description:': this.blog.value.description = curr; break ;
 			case 'date:': this.blog.value.date = body; break ;
-			case 'image:': this.blog.value.images?.push(body.slice(1, body.length - 1)); break ;
-			case 'author:': this.blog.value.authors?.push(body.slice(1, body.length - 1)); break ;
+			case 'image:':
+				if (body.includes('"'))
+					this.blog.value.images?.push(body.slice(1, body.length - 1));
+				else
+					this.blog.value.images?.push(body);
+			break ;
+			case 'author:':
+				if (body.includes('"'))
+					this.blog.value.authors?.push(body.slice(1, body.length - 1));
+				else
+					this.blog.value.authors?.push(body);
+			break ;
 			case 'tags:': this.tagsCat(item, body, 'tag'); break ;
 			case 'categories:': this.tagsCat(item, body, 'cat'); break ;
 			case 'draft:': body == 'true' ? this.blog.value.draft = true : this.blog.value.draft = false; break ;
@@ -252,61 +342,42 @@ export default class mainParser {
 	{
 		this.md = markdown;
 		this.data = this.md.split('\n');
-		let flag = false;
+		this.blog.value.head = false;
+		let flag = 0;
 		let item = '';
 
 		for (item of this.data)
 		{
-			if (item.includes('---'))
+			if (this.blog.value.head == false)
 			{
-				switch (flag ? 1 : 0)
+				if (item.slice(0, 3).includes('---'))
 				{
-					case 1 : flag = false; break ;
-					default : flag = true; break ;
+					switch (flag)
+					{
+						case 1 : flag = 0; break ;
+						default : flag = 1; break ;
+					}
+					if (flag == 0)
+						this.blog.value.head = true;
+					continue ;
 				}
-				continue ;
+				if (flag == 1)
+				{
+					let sub: string[] = item.split(' ', 1);
+					sub.push(item.slice(sub[0].length, item.length));
+					sub[1] = sub[1].trim();
+					if (sub && this.blog.value.head == false)
+						this.parseHead(sub[0], sub[1]);
+					continue ;
+				}
 			}
-			if (flag)
-			{
-				let sub: string[] = item.split(' ', 1);
-				sub.push(item.slice(sub[0].length, item.length));
-				sub[1] = sub[1].trim();
-				if (sub)
-					this.parseHead(sub[0], sub[1]);
-				continue ;
-			}
+			if (item.slice(0, 3).includes('---'))
+				item = '';
 			let sub: string[] = item.split(' ', 1);
 			sub.push(item.trim());
 			this.toolset.parseHeading(sub[0], sub[1]);
 			this.toolset.parseBody(sub[0], sub[1]);
 		}
-
-		// Emphasis
-		if (this.blog.value.body)
-		{
-			let index = '';
-			let i = 0;
-			for (index in this.blog.value.body)
-			{
-				i = parseInt(index);
-				this.toolset.parseEmphasis(i, '**');
-			}
-		}
-		if (this.toolset.nbody)
-			this.blog.value.body = this.toolset.nbody;
-
-		// Bullet Points
-		let elem: Body = {type: BodyType.Bullet};
-		for (elem of this.blog.value.body!)
-		{
-			if (elem.data && elem.data[0] == '-')
-			{
-				elem.type = BodyType.Bullet;
-				elem.data = elem.data.slice(1, elem.data.length);
-			}
-		}
-		this.toolset.parseImg(this.blog);
-		this.toolset.parseLink(this.blog);
 		this.blog.value.id = this.blog.value.title.toLowerCase();
 		this.blog.value.id = this.blog.value.id.replaceAll(' ', '-');
 		this.blog.value.id = this.blog.value.id.replaceAll(':', '');

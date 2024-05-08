@@ -10,18 +10,18 @@ tags: ["8", "horror movie"]
 draft: true
 ---
 
-[dropcap]F[/dropcap]ans of the dark and creepy are in for a treat. We've
+Fans of the dark and creepy are in for a treat. We've
 already written a review of Netflix's last South African success, teen
 thriller series Blood and Water. Now, the streaming platform is serving up
 something a little more ominous, and still delightfully local, to thrill those
 in the mood for a fright: South African horror, **8**.
-[embed]https://youtu.be/D1Ru5gV6iUs[/embed] Alternatively titled **The Soul
+[https://youtu.be/D1Ru5gV6iUs](https://youtu.be/D1Ru5gV6iUs) Alternatively titled **The Soul
 Collector** , Harold Hölscher's **8** is a moody supernatural thriller that draws
 much of its influence from South African folklore. It follows a family family
 that moves into a newly inherited farm, and encounters a strange character
 called Lazarus, who carries with him a dark, dangerous – and pretty damn
 creepy – secret. [caption id="attachment_5204" align="alignleft" width="342"]
-Keita Luna as Mary in '8' source IMDB.[/caption] The film starts off a little
+Keita Luna as Mary in '8' source IMDB. The film starts off a little
 strange, and we're not sure what to make of it in the first ten minutes. While
 some of the leading actors give a somewhat stilted and robotic performance –
 the script writing may be to blame here – Tshamano Sebe, who plays Lazarus, is
@@ -42,7 +42,7 @@ those who are thrilled by the idea of sinister things lurking in the shadows,
 feels like it doesn't quite belong, but what the hell – we're already dealing
 with demons and ancestors, why not keep it weird. [caption
 id="attachment_5205" align="alignright" width="342"] Owam Amey as Vuyiswa in
-'8'. Source: IMDB.[/caption] Despite some odd creative decisions and a few
+'8'. Source: IMDB. Despite some odd creative decisions and a few
 lines that sound cliche enough to make us cringe, the film doesn't lack depth.
 **8** 's characters are all grappling with their own guilt, a fact which becomes
 more clear to us as the film progresses. This adds a very human dimension to a
@@ -57,8 +57,3 @@ particularly the slick production. For anyone who loves a scare and enjoys a
 bit of local flavour, this one is not to be missed. 
 **Essential Millennial
 rating: 3.5 out of 5 avocados**
-
-
-
----
-

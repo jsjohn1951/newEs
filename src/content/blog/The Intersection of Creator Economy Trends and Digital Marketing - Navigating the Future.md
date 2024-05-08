@@ -30,7 +30,7 @@ In our article on [5 Ways That AI Is Changing the Digital Marketing Landscape](h
 
 ## 3. Web3 and Decentralised Platforms in Audience Engagement
 
-Exploring the realm of decentralised platforms, as discussed in [Navigating the Digital Marketing Landscape: Trends and Strategies for Success](/blog/navigating-the-digital-marketing-landscape-trends-and-strategies-for-success/), becomes crucial. The Web3 movement and platforms like DAOs are enhancing transparency and control for creators and their communities, reshaping how audiences engage with content.
+Exploring the realm of decentralised platforms, as discussed in [Navigating the Digital Marketing Landscape: Trends and Strategies for Success](/blog/navigating-the-digital-marketing-landsca-pe-trends-and-strategies-for-success/), becomes crucial. The Web3 movement and platforms like DAOs are enhancing transparency and control for creators and their communities, reshaping how audiences engage with content.
 
 ![](https://lh7-us.googleusercontent.com/9B6k2pjEPhGSU8vfDpCBdUKJa2wbiJ3vjwXa4WvO3O6v2n1TppE04tHBGrHhbEx9XE6yQW5oAc4EWV9dtZfblP-2BFIqo653W88glJqA8xvwJq8PNtDWj5LQRHmTvU09fpV0H7s5esvi-jRfLarxQLE)
 

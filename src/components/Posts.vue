@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { Blog } from '../content/interfaces/InterfaceBlog'
 import router from '@/router';
+import { ref } from 'vue'
 
 const props = defineProps < {
 	blog: Blog
 } > ();
 
 let urlChange = 1;
+let req = new XMLHttpRequest();
 
 function redir(url: string)
 {

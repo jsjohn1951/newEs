@@ -12,6 +12,8 @@ const articles = ref(blogs().filter((post) => {
 		return false;
 	return true;
 }));
+
+articles.value.sort((a, b) => (new Date(a().value.date) > new Date(b().value.date) ? -1 : 1))
 let blog = articles.value.find(i => i().value.id === params);
 const page = ref(1);
 const search = useAppStore();

@@ -2,10 +2,14 @@
 import { Blog, BodyType } from '../content/interfaces/InterfaceBlog'
 import list from './List.vue'
 import Heading from './Heading.vue'
+import { parsEmBul } from '../composables/parseMd'
+import { ref } from 'vue'
 
 const props = defineProps < {
 	blog: Blog
 } > ();
+
+new parsEmBul(ref(props.blog));
 
 function moreThanNotEnd(index: number, items: any[] | undefined)
 {
@@ -95,7 +99,7 @@ const  date = `${ndate[0]}, ${ndate[1]} ${ndate[2]}, ${ndate[3]}`
 			<br v-for="i in 2"/>
 		</div>
 
-		<li v-if="item.type == BodyType.Bullet && item.data" style="margin: 0 5px 0 20px; float: left;">
+		<li v-if="item.type == BodyType.Bullet && item.data" style="margin: 0 5px 0 20px;">
 				{{ item.data }}
 		</li>
 		<ol v-else-if="item.type == BodyType.Orderd" style="margin-left: 20px;">
@@ -108,7 +112,7 @@ const  date = `${ndate[0]}, ${ndate[1]} ${ndate[2]}, ${ndate[3]}`
 		</ol>
 
 		<!-- Recursive list -->
-		<list v-if="item.list" :list-body="item.list" :indent="40"/>
+		<!-- <list v-if="item.list" :list-body="item.list" :indent="40"/> -->
 
 		</div>
 		</ul>

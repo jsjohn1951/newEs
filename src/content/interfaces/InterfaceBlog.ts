@@ -42,4 +42,5 @@ export interface Blog
 	images?: string[],		// images queue
 	tags?: string[],		// tags queue
 	categories?: string[]	// categories queue
+	head?: boolean
 }

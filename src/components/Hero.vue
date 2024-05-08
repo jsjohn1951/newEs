@@ -9,9 +9,9 @@ const props = defineProps<{
 const txt = ref('<Development/>');
 
 const slides = ref([
-	'/16.png',
-	'/25.png',
-	'/26.png'
+	'/hero/16.png',
+	'/hero/25.png',
+	'/hero/26.png'
 		])
 
 function redir(url: string)
