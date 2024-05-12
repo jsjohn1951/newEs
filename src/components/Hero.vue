@@ -94,7 +94,7 @@ onMounted(() => {
   :key="i"
   cover
   >
-  <v-parallax :src="`/hero/25.png`">
+  <v-parallax :src="slide">
   </v-parallax>
 </v-carousel-item>
 <div class="flex-column fill-height flex-center" style="padding: 100px; color: white; position: absolute; width: 100vw; height: 100vh;">
