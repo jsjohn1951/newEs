@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: build
+    name: build and deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -28,23 +28,29 @@ jobs:
           name: prod-files
           path: ./dist
 
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: prod-files
-          path: ./dist
-
       - name: Deploy app
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
+  # deploy:
+  #   name: Deploy
+  #   needs: build
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Download Artifacts
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: prod-files
+  #         path: ./dist
+
+  #     - name: Deploy app
+  #       uses: peaceiris/actions-gh-pages@v3
+  #       with:
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+  #         publish_dir: ./dist
 
 
 
