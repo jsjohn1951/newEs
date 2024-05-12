@@ -2,7 +2,7 @@
 title: "5 Ways That AI Is Changing the Digital Marketing Landscape"
 meta_title: "How AI Is Changing Digital Marketing "
 description: "In this articl we discuss the ever increasing important role that AI is playing in the field of digital marketing."
-date: 2023-08-16 T09:00:00Z
+date: 2023-08-16T09:00:00Z
 image: "/images/5-AI-marketing.jpg"
 categories: ["Digital Marketing"]
 author: "Forrest Smith"
