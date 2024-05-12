@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { BlogN, BodyType } from '../content/interfaces/InterfaceBlog'
-import list from './List.vue'
-import Heading from './Heading.vue'
-import { ref } from 'vue'
 import { marked } from 'marked';
+import char from '../content/test/TestChart.md'
+import parser from '../composables/parseMdN.ts'
+import { BlogN } from '../content/interfaces/InterfaceBlog.ts'
 
-const props = defineProps < {
-	blog: BlogN
-} > ();
+const blog: BlogN = new parser(char).getBlog().value;
 
 function moreThanNotEnd(index: number, items: any[] | undefined)
 {
@@ -16,11 +13,14 @@ function moreThanNotEnd(index: number, items: any[] | undefined)
 	return items.length > 1 && index != items.length - 1 ? ', ' : '';
 }
 
-const ndate = (new Date(props.blog.date).toString()).split(' ', 4);
+const ndate = (new Date(blog.date).toString()).split(' ', 4);
 const  date = `${ndate[0]}, ${ndate[1]} ${ndate[2]}, ${ndate[3]}`
 </script>
 
 <template>
+	<div class="flex-center flex-column" style="padding-top: 97px;">
+		<v-breadcrumbs :items="['Blog', 'test']"/>
+	</div>
 	<div class="app-container flex-center flex-column" style="padding-bottom: 97px;">
 	
 		<div style="max-width: 900px;">
@@ -40,7 +40,6 @@ const  date = `${ndate[0]}, ${ndate[1]} ${ndate[2]}, ${ndate[3]}`
 						{{ object }}{{ moreThanNotEnd(index, blog.authors) }}
 					</div>
 				</v-col>
-				
 				<v-col v-if="blog.categories" style="width: fit-content; flex-grow: 0;">
 					<v-icon icon="mdi-folder" />
 				</v-col>
@@ -60,7 +59,7 @@ const  date = `${ndate[0]}, ${ndate[1]} ${ndate[2]}, ${ndate[3]}`
 		<!-- Content -->
 		<v-row>
 			<v-col>
-				<div v-if="blog.body" v-html="marked(blog.body)" />
+				<div v-html="marked(blog.body)" />
 			</v-col>
 		</v-row>
 		</v-container>
@@ -73,7 +72,6 @@ const  date = `${ndate[0]}, ${ndate[1]} ${ndate[2]}, ${ndate[3]}`
 
 img {
 	max-width: 100%;
-	max-height: 900px;
 }
 
 h2 {

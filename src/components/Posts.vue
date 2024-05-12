@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Blog } from '../content/interfaces/InterfaceBlog'
+import { BlogN } from '../content/interfaces/InterfaceBlog'
 import router from '@/router';
 import { ref } from 'vue'
 
 const props = defineProps < {
-	blog: Blog
+	blog: BlogN
 } > ();
 
 let urlChange = 1;
@@ -25,7 +25,7 @@ function moreThanNotEnd(index: number, items: any[] | undefined)
 </script>
 
 <template>
-	<v-card class="mx-auto" max-width="400" link @click="redir(`/Blog/${blog.id}`)">
+	<v-card class="mx-auto" link @click="redir(`/Blog/${blog.id}`)">
 		<v-img v-if="!blog.images" class="align-end text-white" height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" cover />
 		<v-img v-else class="align-end text-white" height="200" :src="blog.images![0]" cover />
 	
@@ -72,5 +72,10 @@ function moreThanNotEnd(index: number, items: any[] | undefined)
 <style scoped>
 .desc {
 	height: 100px;
+}
+
+.v-card {
+	width: 400px;
+	max-width: 80%;
 }
 </style>

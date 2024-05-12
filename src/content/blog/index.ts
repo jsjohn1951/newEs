@@ -1,8 +1,9 @@
-import { Blog, BodyType, Body } from '../interfaces/InterfaceBlog'
+import { BlogN } from '../interfaces/InterfaceBlog'
 import { ref, Ref } from 'vue'
-import parser from '../../composables/parseMd'
+import parser from '../../composables/parseMdN'
+import { marked } from 'marked';
 
-let blog: Ref<Blog[]> = ref([]);
+let blog: Ref<BlogN[]> = ref([]);
 
 const ret = async () =>
 {
@@ -13,6 +14,7 @@ const ret = async () =>
 	  })
 	  for (const path in mod) {
 		  await mod[path]().then((m) => {
+			// console.log(marked(m.default))
 			blog.value.push(new parser(m.default).getBlog().value);
 		  })
 		}

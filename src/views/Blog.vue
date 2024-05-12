@@ -94,3 +94,10 @@ function calcPagination()
 	
 	</div>
 </template>
+
+<!-- <style scoped>
+
+element.style {
+    max-width: 300px;
+}
+</style> -->

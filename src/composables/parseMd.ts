@@ -1,4 +1,3 @@
-import { link } from 'fs';
 import { Blog, BodyType, Body } from '../content/interfaces/InterfaceBlog'
 import { ref, Ref } from 'vue'
 

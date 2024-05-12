@@ -44,3 +44,20 @@ export interface Blog
 	categories?: string[]	// categories queue
 	head?: boolean
 }
+
+export interface BlogN
+{
+	id: string,				// post id used for url
+	date: string,			// Date and time created
+	title: string,			// post title
+	draft?: boolean,			// is it a draft?
+	meta_title?: string,	// post meta title
+	subtitle?: string,		// post subtitle
+	description?: string,	// post description
+	authors?: string[],		// post author/authors
+	body?: string,			// body of the post
+	images?: string[],		// images queue
+	tags?: string[],		// tags queue
+	categories?: string[]	// categories queue
+	head?: boolean
+}
