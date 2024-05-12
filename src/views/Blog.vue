@@ -70,6 +70,7 @@ function calcPagination()
 </script>
 
 <template>
+	<div class="app-container flex-center flex-column">
 	<div class="flex-center flex-column" style="padding-top: 97px;">
 		<v-breadcrumbs v-if="!blog" :items="['Blog']"/>
 		<v-breadcrumbs v-else :items="['Blog', blog().value.id]"/>
@@ -93,6 +94,7 @@ function calcPagination()
 		</v-container>
 	
 	</div>
+</div>
 </template>
 
 <!-- <style scoped>

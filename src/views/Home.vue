@@ -36,7 +36,7 @@ function largeOutput ()
 </script>
 
 <template>
-  <v-container class="app-container flex-center flex-column">
+  <v-container class="app-container flex-center flex-column" style="padding: 0;">
 	<section class="section-1">
 		<hero :is-large-screen="isLargeScreen"/>
 	</section>
@@ -110,7 +110,7 @@ function largeOutput ()
 <style scoped>
 .section-1 {
 	width: 100vw;
-	min-height: 100vh;
+	min-height: fit-content;
 }
 .section-2, .section-3 {
 	width: 100vw;

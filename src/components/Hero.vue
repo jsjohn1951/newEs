@@ -33,9 +33,6 @@ const data = {
 		'<Content/>',
 		'<Marketing/>',
 		'<Strategies/>'
-		// '<Design/>',
-		// '<Development/>',
-		// '<Reactivity/>'
 	],
     typingSpeed: 100,
     erasingSpeed: 50,
@@ -85,19 +82,20 @@ onMounted(() => {
 </script>
 
 <template>
+  <div class="hero-container">
 	<v-carousel
     cycle
-    hide-delimiter-background
+    hide-delimiters
     :show-arrows="false"
-	style="height: 99vh;"
+    style="height: 100vh;"
   >
   <v-carousel-item
   v-for="(slide, i) in slides"
   :key="i"
   cover
   >
-  <v-parallax :src="slide" style="height: 100vh;">
-	</v-parallax>
+  <v-parallax :src="`/hero/25.png`">
+  </v-parallax>
 </v-carousel-item>
 <div class="flex-column fill-height flex-center" style="padding: 100px; color: white; position: absolute; width: 100vw; height: 100vh;">
 	<div class="flex-center flex-column" style="width: 100%; gap: 20px;">
@@ -121,6 +119,7 @@ onMounted(() => {
 	</div>
 </div>
   </v-carousel>
+</div>
 </template>
 
 <style scoped>
@@ -130,16 +129,12 @@ onMounted(() => {
     border-right: 2px solid white;
     font-size: 16px;
     white-space: nowrap;
-    /* animation: typing 5s forwards infinite, blink 1s infinite; */
-	animation: blink 1s infinite;
+	  animation: blink 1s infinite;
   }
 
-/* The typing animation */
-/* @keyframes typing {
-	0% { width: 0%;}
-	35% { width: 100%;}
-	70% { width: 0%;}
-} */
+.hero-container {
+  height: fit-content;
+}
 
 @keyframes blink {
   0%, 45% {

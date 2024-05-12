@@ -76,6 +76,6 @@ function moreThanNotEnd(index: number, items: any[] | undefined)
 
 .v-card {
 	width: 400px;
-	max-width: 80%;
+	/* max-width: 80%; */
 }
 </style>

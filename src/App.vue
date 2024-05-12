@@ -117,7 +117,6 @@ function searchRes(event: any)
 .slide-leave-active {
 	transition: opacity 1s, transform 1s;
 }
-
 .slide-enter-from
 {
 	opacity: 0;

@@ -12,30 +12,39 @@ const emit = defineEmits({
 
 const theme = useTheme();
 const menuColor = ref('color: white;');
-const bgColor = ref('background-color: black;');
-const logo = ref('/em-logo-darkmode.webp')
+const bgColor = ref('');
+const logo = ref('/white_logo.png')
 const drawer = ref(false)
-const widthQuery = window.matchMedia('(min-width: 1260px)')
-const isLargeScreen = ref(widthQuery.matches);
 const mem = ref('/')
 
-widthQuery.addEventListener('change', () => {
-	isLargeScreen.value = widthQuery.matches;
+// Check is screen size at least 1260?
+const widthQueryLarge = window.matchMedia('(min-width: 1260px)')
+const isLargeScreen = ref(widthQueryLarge.matches);
+
+widthQueryLarge.addEventListener('change', () => {
+	isLargeScreen.value = widthQueryLarge.matches;
+});
+
+const widthQuerySmall = window.matchMedia('(min-width: 415px)')
+const isSmallScreen = ref(!widthQuerySmall.matches);
+
+widthQuerySmall.addEventListener('change', () => {
+	isSmallScreen.value = !widthQuerySmall.matches;
 });
 
 if (theme.global.name.value == 'light')
 {
 	menuColor.value = 'color: black;';
-	bgColor.value = 'background-color: white;'
-	logo.value = '/em-logo-lightmode.webp'
+	// bgColor.value = 'background-color: white;'
+	logo.value = '/dark_logo.png'
 }
 
 function toggleTheme ()
 {
 	theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 	menuColor.value = theme.global.current.value.dark ? 'color: white;' : 'color: black;'
-	bgColor.value = theme.global.current.value.dark ? 'background-color: black;' : 'background-color: white;'
-	logo.value = theme.global.current.value.dark ? '/em-logo-darkmode.webp' : '/em-logo-lightmode.webp'
+	// bgColor.value = theme.global.current.value.dark ? 'background-color: black;' : 'background-color: white;'
+	logo.value = theme.global.current.value.dark ? '/white_logo.png' : '/dark_logo.png'
 }
 
 function redir(url: string)
@@ -53,7 +62,8 @@ function searchRes(event: any)
 <template>
 	<div id="navbar" class="navbar flex-row flex-between" :style="bgColor + 'padding: 8px 30px 8px 30px; z-index: 1090; height: fit-content;'">
 		<button @click="redir('/')">
-			<img :src="logo" style="max-width: 300px; width: 20vw; min-width: 300px;">
+			<img v-if="!isSmallScreen" :src="logo" style="max-width: 300px; width: 20vw; min-width: 300px;">
+			<img v-else src="/small_white_logo.png" style="height: 48px; width: 48px;">
 		</button>
 		<div v-if="isLargeScreen" class="items flex-row flex-end" :style="menuColor">
 			<div class="flex-between" style="width: 45%; max-width: 800px">
