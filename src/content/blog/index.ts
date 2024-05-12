@@ -15,7 +15,7 @@ const ret = async () =>
 	  for (const path in mod) {
 		  await mod[path]().then((m) => {
 			// console.log(marked(m.default))
-			blog.value.push(new parser(m.default).getBlog().value);
+			blog.value.push(new parser((m as any).default).getBlog().value);
 		  })
 		}
 }

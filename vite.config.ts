@@ -14,6 +14,11 @@ const markdownRawPlugin = require('vite-raw-plugin')
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  esbuild: {
+    supported: {
+      'top-level-await': true //browsers can handle top-level-await features
+    },
+  },
   plugins: [
 	// vuePlugin(),
     markdownRawPlugin({
